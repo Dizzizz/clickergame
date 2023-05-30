@@ -1,0 +1,31 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+}
+
+#clickArea {
+  margin-top: 50px;
+}
+
+#clickButton {
+  font-size: 24px;
+  padding: 10px 20px;
+}
+
+#store {
+  margin-top: 50px;
+}
+
+#store div {
+  border: 1px solid #333;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#cpsDisplay {
+  margin-top: 50px;
+}
