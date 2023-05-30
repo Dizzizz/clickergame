@@ -5,6 +5,7 @@ let managerCount = 0;
 let factoryCount = 0;
 let upgradeCount = 0;
 let clicksPerSecond = 0;
+let totalClicksProduced = 0;
 
 let workerPrice = 10;
 let managerPrice = 300;
@@ -30,7 +31,7 @@ document.getElementById("buyWorkerButton").addEventListener("click", function() 
   }
 });
 
-// Manager button event listener (similar logic for factory and upgrade buttons)
+// Manager button event listener
 document.getElementById("buyManagerButton").addEventListener("click", function() {
   if (clickCount >= managerPrice) {
     clickCount -= managerPrice;
@@ -59,13 +60,26 @@ function updateWorker() {
 }
 
 // Function to update manager display
+function updateManager() {
+  document.getElementById("managerPrice").textContent = managerPrice;
+  document.getElementById("managerProduction").textContent = (0.3 * managerCount).toFixed(1);
+}
 
 // Function to update clicks per second display
 function updateCPS() {
+  clicksPerSecond = (0.1 * workerCount) + (0.3 * managerCount) + (0.7 * factoryCount);
   document.getElementById("cps").textContent = clicksPerSecond.toFixed(1);
+}
+
+// Function to calculate total clicks produced
+function calculateTotalClicks() {
+  totalClicksProduced = (0.1 * workerCount) + (0.3 * managerCount) + (0.7 * factoryCount);
+  document.getElementById("totalClicks").textContent = totalClicksProduced.toFixed(1);
 }
 
 // Initialize the game
 updateClickCount();
 updateWorker();
+updateManager();
 updateCPS();
+calculateTotalClicks();
