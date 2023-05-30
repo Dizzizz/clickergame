@@ -1,85 +1,139 @@
-// Variables
+// Variables to store game state
 let clickCount = 0;
 let workerCount = 0;
 let managerCount = 0;
 let factoryCount = 0;
 let upgradeCount = 0;
-let clicksPerSecond = 0;
-let totalClicksProduced = 0;
 
+// Variables to store entity prices and production rates
 let workerPrice = 10;
 let managerPrice = 300;
 let factoryPrice = 700;
 let upgradePrice = 100;
+let workerProduction = 0.1;
+let managerProduction = 0.3;
+let factoryProduction = 0.7;
+let upgradeMultiplier = 2;
 
-// Click button event listener
-document.getElementById("clickButton").addEventListener("click", function() {
-  clickCount += 0.1 * Math.pow(2, upgradeCount);
+// Update the click count display
+function updateClickCount() {
+  document.getElementById('clickCount').textContent = clickCount.toFixed(1);
+}
+
+// Update the worker count display
+function updateWorkerCount() {
+  document.getElementById('workerCount').textContent = workerCount;
+}
+
+// Update the manager count display
+function updateManagerCount() {
+  document.getElementById('managerCount').textContent = managerCount;
+}
+
+// Update the factory count display
+function updateFactoryCount() {
+  document.getElementById('factoryCount').textContent = factoryCount;
+}
+
+// Update the upgrade count display
+function updateUpgradeCount() {
+  document.getElementById('upgradeCount').textContent = upgradeCount;
+}
+
+// Update the production rates display
+function updateProductionRates() {
+  document.getElementById('workerProduction').textContent = (workerCount * workerProduction).toFixed(1);
+  document.getElementById('managerProduction').textContent = (managerCount * managerProduction).toFixed(1);
+  document.getElementById('factoryProduction').textContent = (factoryCount * factoryProduction).toFixed(1);
+}
+
+// Update the clicks per second display
+function updateCPS() {
+  const cps = (workerCount * workerProduction) + (managerCount * managerProduction) + (factoryCount * factoryProduction);
+  document.getElementById('cps').textContent = cps.toFixed(1);
+}
+
+// Update the total clicks produced display
+function updateTotalClicks() {
+  document.getElementById('totalClicks').textContent = (clickCount + (workerCount * workerProduction) + (managerCount * managerProduction) + (factoryCount * factoryProduction)).toFixed(1);
+}
+
+// Handle the click event
+function handleClick() {
+  clickCount += 0.1 + (upgradeCount * 0.1);
   updateClickCount();
-});
+  updateTotalClicks();
+}
 
-// Worker button event listener
-document.getElementById("buyWorkerButton").addEventListener("click", function() {
+// Handle buying a worker
+function buyWorker() {
   if (clickCount >= workerPrice) {
     clickCount -= workerPrice;
     workerCount++;
     workerPrice *= 2;
-    clicksPerSecond += 0.1;
     updateClickCount();
-    updateWorker();
-    updateCPS();
+    updateWorkerCount();
+    updateProductionRates();
+    updateTotalClicks();
   }
-});
+}
 
-// Manager button event listener
-document.getElementById("buyManagerButton").addEventListener("click", function() {
+// Handle buying a manager
+function buyManager() {
   if (clickCount >= managerPrice) {
     clickCount -= managerPrice;
     managerCount++;
     managerPrice *= 2;
-    clicksPerSecond += 0.3;
     updateClickCount();
-    updateManager();
+    updateManagerCount();
+    updateProductionRates();
+    updateTotalClicks();
+  }
+}
+
+// Handle buying a factory
+function buyFactory() {
+  if (clickCount >= factoryPrice) {
+    clickCount -= factoryPrice;
+    factoryCount++;
+    factoryPrice *= 2;
+    updateClickCount();
+    updateFactoryCount();
+    updateProductionRates();
+    updateTotalClicks();
+  }
+}
+
+// Handle buying an upgrade
+function buyUpgrade() {
+  if (clickCount >= upgradePrice) {
+    clickCount -= upgradePrice;
+    upgradeCount++;
+    upgradePrice *= 3;
+    workerProduction *= upgradeMultiplier;
+    managerProduction *= upgradeMultiplier;
+    factoryProduction *= upgradeMultiplier;
+    updateClickCount();
+    updateUpgradeCount();
+    updateProductionRates();
+    updateTotalClicks();
     updateCPS();
   }
-});
-
-// Factory button event listener
-
-// Upgrade button event listener
-
-// Function to update click count display
-function updateClickCount() {
-  document.getElementById("clickCount").textContent = clickCount.toFixed(1);
 }
 
-// Function to update worker display
-function updateWorker() {
-  document.getElementById("workerPrice").textContent = workerPrice;
-  document.getElementById("workerProduction").textContent = (0.1 * workerCount).toFixed(1);
-}
+// Add event listeners to buttons
+document.getElementById('clickButton').addEventListener('click', handleClick);
+document.getElementById('buyWorkerButton').addEventListener('click', buyWorker);
+document.getElementById('buyManagerButton').addEventListener('click', buyManager);
+document.getElementById('buyFactoryButton').addEventListener('click', buyFactory);
+document.getElementById('buyUpgradeButton').addEventListener('click', buyUpgrade);
 
-// Function to update manager display
-function updateManager() {
-  document.getElementById("managerPrice").textContent = managerPrice;
-  document.getElementById("managerProduction").textContent = (0.3 * managerCount).toFixed(1);
-}
-
-// Function to update clicks per second display
-function updateCPS() {
-  clicksPerSecond = (0.1 * workerCount) + (0.3 * managerCount) + (0.7 * factoryCount);
-  document.getElementById("cps").textContent = clicksPerSecond.toFixed(1);
-}
-
-// Function to calculate total clicks produced
-function calculateTotalClicks() {
-  totalClicksProduced = (0.1 * workerCount) + (0.3 * managerCount) + (0.7 * factoryCount);
-  document.getElementById("totalClicks").textContent = totalClicksProduced.toFixed(1);
-}
-
-// Initialize the game
+// Initial setup
 updateClickCount();
-updateWorker();
-updateManager();
+updateWorkerCount();
+updateManagerCount();
+updateFactoryCount();
+updateUpgradeCount();
+updateProductionRates();
 updateCPS();
-calculateTotalClicks();
+updateTotalClicks();
