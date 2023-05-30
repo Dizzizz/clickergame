@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clicker Game</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>Clicker Game</h1>
+
+  <div id="clickArea">
+    <button id="clickButton">Click Me!</button>
+    <p>Clicks: <span id="clickCount">0</span></p>
+  </div>
+
+  <div id="store">
+    <h2>Store</h2>
+    <div id="worker">
+      <p>Worker</p>
+      <p>Price: <span id="workerPrice">10</span> clicks</p>
+      <p>Production: <span id="workerProduction">0.1</span> clicks/s</p>
+      <button id="buyWorkerButton">Buy Worker</button>
+    </div>
+    
+    <div id="manager">
+      <p>Manager</p>
+      <p>Price: <span id="managerPrice">300</span> clicks</p>
+      <p>Production: <span id="managerProduction">0.3</span> clicks/s</p>
+      <button id="buyManagerButton">Buy Manager</button>
+    </div>
+
+    <div id="factory">
+      <p>Factory</p>
+      <p>Price: <span id="factoryPrice">700</span> clicks</p>
+      <p>Production: <span id="factoryProduction">0.7</span> clicks/s</p>
+      <button id="buyFactoryButton">Buy Factory</button>
+    </div>
+
+    <div id="upgrade">
+      <p>Upgrade</p>
+      <p>Price: <span id="upgradePrice">100</span> clicks</p>
+      <button id="buyUpgradeButton">Buy Upgrade</button>
+    </div>
+  </div>
+
+  <div id="cpsDisplay">
+    <p>Clicks per Second: <span id="cps">0</span></p>
+  </div>
+</body>
+</html>
